@@ -71,17 +71,17 @@
 
 - посмотреть с помощью команды `ip a | grep inet`:
 
-image 2
+![Image alt](https://github.com/NikPuskov/OSPF/blob/main/ospf2.jpg)
 
 - зайти в интерфейс FRR и посмотреть информацию об интерфейсах:
 
-image 3
+![Image alt](https://github.com/NikPuskov/OSPF/blob/main/ospf3.jpg)
 
 В обоих примерах мы увидим имена сетевых интерфейсов, их ip-адреса и маски подсети. Исходя из схемы мы понимаем, что для настройки OSPF нам достаточно описать интерфейсы enp0s8, enp0s9, enp0s10.
 
 Создаём файл `/etc/frr/frr.conf` и вносим в него следующую информацию:
 
-image 4
+![Image alt](https://github.com/NikPuskov/OSPF/blob/main/ospf4.jpg)
 
 Вместо файла frr.conf мы можем задать данные параметры вручную из vtysh. Vtysh использует cisco-like команды. На хостах router2 и router3 также требуется настроить конфигурационные файлы, предварительно поменяв ip -адреса интерфейсов. В ходе создания файла мы видим несколько OSPF-параметров, которые требуются для настройки:
 
@@ -117,7 +117,7 @@ image 4
 
 Убедиться в этом можно пропинговав интерфейсы роутеров и/или посмотреть таблицу маршрутизации на наличие указанных маршрутов:
 
-image 5
+![Image alt](https://github.com/NikPuskov/OSPF/blob/main/ospf5.jpg)
 
 --------------------------------------------------------------------------------------------------
 
@@ -129,13 +129,13 @@ image 5
 
 Выбираем один из роутеров, на котором изменим «стоимость интерфейса». Например, поменяем стоимость интерфейса enp0s8 на router1:
 
-image 6
+![Image alt](https://github.com/NikPuskov/OSPF/blob/main/ospf6.jpg)
 
 Видим пакеты с router1 к сетям router2 теперь пойдут через router3.
 
 Ответные пакеты c router2 к router1 пойдут по прежнему пути, сразу на router1:
 
-image 7
+![Image alt](https://github.com/NikPuskov/OSPF/blob/main/ospf7.jpg)
 
 Для проверки запускаем на router1 пинг от 192.168.10.1 до 192.168.20.1:
 
@@ -143,13 +143,13 @@ image 7
 
 На router2 запускаем tcpdump, который будет смотреть трафик только на порту enp0s9:
 
-image 8
+![Image alt](https://github.com/NikPuskov/OSPF/blob/main/ospf8.jpg)
 
 Видим что запросы приходят на интерфейс enp0s9.
 
 На router2 запускаем tcpdump, который будет смотреть трафик только на порту enp0s8:
 
-image 9
+![Image alt](https://github.com/NikPuskov/OSPF/blob/main/ospf9.jpg)
 
 Видим, что ответы уходят с интерфейса enp0s9.
 
@@ -165,6 +165,6 @@ image 9
 
 Поменяем стоимость интерфейса enp0s8 на router2:
 
-image 10
+![Image alt](https://github.com/NikPuskov/OSPF/blob/main/ospf10.jpg)
 
 Видим, что маршрут до сети 192.168.10.0/30 пойдёт через router2
